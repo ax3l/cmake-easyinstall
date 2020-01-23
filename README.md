@@ -5,6 +5,8 @@ Install CMake projects as simple as you love it from pip:
 cmake-easyinstall install git+https://github.com/org/rego.git
 ```
 
+![cmake-easyinstall demo](cmake_easyinstall_opt.gif)
+
 ## Install
 
 ```sh
