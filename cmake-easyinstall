@@ -29,7 +29,7 @@ fi
 mkdir -p ${tmp_dir}/build
 
 # download
-git_url=${1:4:8}  # crop-off "git-" prefix
+git_url=${1:4}  # crop-off "git-" prefix
 git clone \
   --depth 1 --shallow-submodules \
   ${git_url} ${tmp_dir}/src
