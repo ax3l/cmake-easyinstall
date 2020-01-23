@@ -1,12 +1,15 @@
 # cmake-easyinstall
 
-Install CMake projects as simple as "pip install git+https://github.com/org/rego.git
+Install CMake projects as simple as you love it from pip:
+```sh
+cmake-easyinstall install git+https://github.com/org/rego.git
+```
 
 ## Install
 
 ```sh
-curl -o /usr/local/bin/cmake-easyinstall https://raw.githubusercontent.com/ax3l/cmake-easyinstall/master/cmake-easyinstall
-chmod a+x /usr/local/bin/cmake-easyinstall
+curl -L -o cmake-easyinstall https://git.io/JvLxY
+chmod a+x cmake-easyinstall
 ```
 
 ## Usage
