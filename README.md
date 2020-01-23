@@ -17,3 +17,10 @@ chmod a+x cmake-easyinstall
 ```sh
 cmake-easyinstall git-<https-url>.git [cmake-options]
 ```
+
+## Dependencies
+
+- bash
+- cmake
+- curl
+- git
