@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+#
+# Copyright 2020 Axel Huebl
+#
+# License: BSD-2-Clause
+#
+# dependencies: bash, cmake, curl, git
+
+set -eu -o pipefail
+
+# usage
+if [ "$#" -lt 1 ]
+then
+    echo "Usage: $0 git-<https-url>.git [cmake-options]"
+    exit 1
+fi
+
+# options (undocumented)
+CEI_CMAKE=${CEI_CMAKE:-"cmake"}
+CEI_MAKE=${CEI_MAKE:-"make"}
+CEI_PARALLEL=${CEI_PARALLEL:-"2"}
+
+# create a temporary directory
+tmp_dir=$(mktemp --help >/dev/null 2>&1 && mktemp -d -t ci-XXXXXXXXXX || mktemp -d "${TMPDIR:-/tmp}"/ci-XXXXXXXXXX)
+if [ $? -ne 0 ]; then
+    echo "Cannot create a temporary directory"
+    exit 2
+fi
+mkdir -p ${tmp_dir}/build
+
+# download
+git_url=${1:4:8}  # crop-off "git-" prefix
+git clone \
+  --depth 1 --shallow-submodules \
+  ${git_url} ${tmp_dir}/src
+
+# execute
+cd ${tmp_dir}/build
+${CEI_CMAKE} ../src "${@:2}"
+${CEI_MAKE} -j${CEI_PARALLEL} install
+
+# remove temporary directory
+cd -
+rm -rf ${tmp_dir}
