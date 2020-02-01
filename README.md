@@ -1,4 +1,4 @@
-# cmake-easyinstall
+# cmake-easyinstall ![Supported Platforms](https://img.shields.io/badge/platforms-linux%20|%20osx-blue.svg)
 
 Install CMake projects as simple as you love it from pip:
 ```sh
