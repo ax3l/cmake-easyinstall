@@ -4,7 +4,7 @@
 #
 # License: BSD-2-Clause
 #
-# dependencies: bash, cmake, curl, git
+# dependencies: bash, cmake 3.12.0+, git
 
 set -eu -o pipefail
 
@@ -17,7 +17,7 @@ fi
 
 # options (undocumented)
 CEI_CMAKE=${CEI_CMAKE:-"cmake"}
-CEI_MAKE=${CEI_MAKE:-"make"}
+CEI_CONFIG=${CEI_CONFIG:-"RelWithDebInfo"}
 CEI_PARALLEL=${CEI_PARALLEL:-"2"}
 
 # create a temporary directory
@@ -36,8 +36,8 @@ git clone \
 
 # execute
 cd ${tmp_dir}/build
-${CEI_CMAKE} ../src "${@:2}"
-${CEI_MAKE} -j${CEI_PARALLEL} install
+${CEI_CMAKE} ../src -DCMAKE_BUILD_TYPE=${CEI_CONFIG} "${@:2}"
+cmake --build . --target install --config=${CEI_CONFIG}
 
 # remove temporary directory
 cd -

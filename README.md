@@ -24,5 +24,6 @@ cmake-easyinstall git-<https-url>.git [cmake-options]
 
 - bash
 - cmake
-- curl
+- curl (for the initial download)
 - git
+- ninja, make, or any other [native build system](https://cmake.org/cmake/help/v3.16/manual/cmake-generators.7.html)
