@@ -37,7 +37,7 @@ git clone \
 # execute
 cd ${tmp_dir}/build
 ${CEI_CMAKE} ../src -DCMAKE_BUILD_TYPE=${CEI_CONFIG} "${@:2}"
-cmake --build . --target install --config=${CEI_CONFIG}
+cmake --build . --target install --config ${CEI_CONFIG} --parallel ${CEI_PARALLEL}
 
 # remove temporary directory
 cd -
