@@ -1,6 +1,6 @@
 # cmake-easyinstall ![Supported Platforms](https://img.shields.io/badge/platforms-linux%20|%20osx-blue.svg) ![License: BSD-2-Clause](https://img.shields.io/github/license/ax3l/cmake-easyinstall)
 
-Install CMake projects as simple as you love it from pip:
+Install CMake projects as simple as:
 ```sh
 cmake-easyinstall git+https://github.com/org/rego.git
 ```
@@ -19,6 +19,14 @@ chmod a+x cmake-easyinstall
 ```sh
 cmake-easyinstall git+<https-url>.git [cmake-options]
 ```
+
+## Environment Options
+
+Just `export CEI_<option>=<value>` to change some defaults:
+
+- `CEI_CMAKE`: path or alias for the cmake command (default: `cmake`)
+- `CEI_CONFIG`: the [build configuration](https://cmake.org/cmake/help/v3.16/manual/cmake.1.html#build-tool-mode) (default: `RelWithDebInfo`)
+- `CEI_PARALLEL`: maximum number of concurrent build processes (default: `2`)
 
 ## Dependencies
 

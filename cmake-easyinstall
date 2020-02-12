@@ -15,7 +15,7 @@ then
     exit 1
 fi
 
-# options (undocumented)
+# options
 CEI_CMAKE=${CEI_CMAKE:-"cmake"}
 CEI_CONFIG=${CEI_CONFIG:-"RelWithDebInfo"}
 CEI_PARALLEL=${CEI_PARALLEL:-"2"}
