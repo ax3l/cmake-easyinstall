@@ -33,7 +33,7 @@ Just `export CEI_<option>=<value>` to change some defaults:
 
 - `--prefix=<dir>`: installation prefix (default: CMake default)
 
-Note: `cmake-options` take precedence over `--prefix` take precedence over environment options.
+Note: `cmake-options` take precedence over `--prefix` takes precedence over environment options.
 
 ## Dependencies
 
