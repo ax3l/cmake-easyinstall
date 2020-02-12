@@ -17,7 +17,7 @@ chmod a+x cmake-easyinstall
 ## Usage
 
 ```sh
-cmake-easyinstall git+<https-url>.git [cmake-options]
+cmake-easyinstall [--prefix=<dir>] git+<https-url>.git [cmake-options]
 ```
 
 ## Environment Options
@@ -27,6 +27,13 @@ Just `export CEI_<option>=<value>` to change some defaults:
 - `CEI_CMAKE`: path or alias for the cmake command (default: `cmake`)
 - `CEI_CONFIG`: the [build configuration](https://cmake.org/cmake/help/v3.16/manual/cmake.1.html#build-tool-mode) (default: `RelWithDebInfo`)
 - `CEI_PARALLEL`: maximum number of concurrent build processes (default: `2`)
+- `CEI_PREFIX`: installation prefix (default: CMake default)
+
+# Command Line Options
+
+- `--prefix=<dir>`: installation prefix (default: CMake default)
+
+Note: `cmake-options` take precedence over `--prefix` take precedence over environment options.
 
 ## Dependencies
 

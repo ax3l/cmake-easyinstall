@@ -9,18 +9,48 @@
 set -eu -o pipefail
 
 # usage
-if [ "$#" -lt 1 ]
-then
-    echo "Usage: $0 git+<https-url>.git [cmake-options]"
+function print_usage_and_exit() {
+    echo "Usage: $0 [--prefix=<dir>] git+<https-url>.git [cmake-options]"
     exit 1
-fi
+}
 
-# options
+# environment options
 CEI_CMAKE=${CEI_CMAKE:-"cmake"}
 CEI_CONFIG=${CEI_CONFIG:-"RelWithDebInfo"}
 CEI_PARALLEL=${CEI_PARALLEL:-"2"}
+CEI_PREFIX=${CEI_PREFIX:-""}
 
-# create a temporary directory
+# command line options (take precedence over environment)
+if [ "$#" -lt 1 ]; then
+    print_usage_and_exit
+fi
+
+if [ "${1}" == "--prefix" ] && [ "$#" -lt 3 ]; then
+    print_usage_and_exit
+fi
+if [ "${1::9}" == "--prefix=" ] && [ "$#" -lt 2 ]; then
+    print_usage_and_exit
+fi
+if [ "${1}" == "--prefix" ]; then
+    CEI_PREFIX="${2}"
+    uri=${3}
+    cmake_opts=${@:4}
+elif [ "${1::9}" == "--prefix=" ]; then
+    CEI_PREFIX="${1:9}"
+    uri=${2}
+    cmake_opts=${@:3}
+else
+    uri=${1}
+    cmake_opts=${@:2}
+fi
+
+if [ ! -z "${CEI_PREFIX}" ]; then
+    cmake_prefix=-DCMAKE_INSTALL_PREFIX=${CEI_PREFIX}
+else
+    cmake_prefix=""
+fi
+
+# create a temporary build directory
 tmp_dir=$(mktemp --help >/dev/null 2>&1 && mktemp -d -t ci-XXXXXXXXXX || mktemp -d "${TMPDIR:-/tmp}"/ci-XXXXXXXXXX)
 if [ $? -ne 0 ]; then
     echo "Cannot create a temporary directory"
@@ -29,14 +59,14 @@ fi
 mkdir -p ${tmp_dir}/build
 
 # download
-git_url=${1:4}  # crop-off "git+" prefix
+git_url=${uri:4}  # crop-off "git+" prefix
 git clone \
   --depth 1 --shallow-submodules \
   ${git_url} ${tmp_dir}/src
 
 # execute
 cd ${tmp_dir}/build
-${CEI_CMAKE} ../src -DCMAKE_BUILD_TYPE=${CEI_CONFIG} "${@:2}"
+${CEI_CMAKE} ../src -DCMAKE_BUILD_TYPE=${CEI_CONFIG} ${cmake_prefix} ${cmake_opts}
 cmake --build . --target install --config ${CEI_CONFIG} --parallel ${CEI_PARALLEL}
 
 # remove temporary directory
