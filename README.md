@@ -17,7 +17,7 @@ chmod a+x cmake-easyinstall
 ## Usage
 
 ```sh
-cmake-easyinstall git-<https-url>.git [cmake-options]
+cmake-easyinstall git+<https-url>.git [cmake-options]
 ```
 
 ## Dependencies
