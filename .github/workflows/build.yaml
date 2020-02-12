@@ -9,6 +9,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build an Example
       run: |
-        ./cmake-easyinstall git+https://github.com/danmar/cppcheck.git \
-          -DCMAKE_INSTALL_PREFIX=$HOME -DBUILD_TESTS=OFF
+        ./cmake-easyinstall --prefix=$HOME git+https://github.com/danmar/cppcheck.git \
+          -DBUILD_TESTS=OFF
         $HOME/bin/cppcheck --help
