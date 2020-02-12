@@ -10,5 +10,5 @@ jobs:
     - name: Build an Example
       run: |
         ./cmake-easyinstall git+https://github.com/danmar/cppcheck.git \
-          -DCMAKE_INSTALL_PREFIX=$HOME
+          -DCMAKE_INSTALL_PREFIX=$HOME -DBUILD_TESTS=OFF
         $HOME/bin/cppcheck --help
