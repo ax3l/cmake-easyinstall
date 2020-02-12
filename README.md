@@ -2,7 +2,7 @@
 
 Install CMake projects as simple as:
 ```sh
-cmake-easyinstall git+https://github.com/org/rego.git
+cmake-easyinstall git+https://github.com/org/repo.git
 ```
 
 ![cmake-easyinstall demo](cmake_easyinstall_opt.gif)
