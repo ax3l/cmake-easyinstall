@@ -44,12 +44,6 @@ else
     cmake_opts=${@:2}
 fi
 
-if [ ! -z "${CEI_PREFIX}" ]; then
-    cmake_prefix=-DCMAKE_INSTALL_PREFIX=${CEI_PREFIX}
-else
-    cmake_prefix=""
-fi
-
 # create a temporary build directory
 tmp_dir=$(mktemp --help >/dev/null 2>&1 && mktemp -d -t ci-XXXXXXXXXX || mktemp -d "${TMPDIR:-/tmp}"/ci-XXXXXXXXXX)
 if [ $? -ne 0 ]; then
@@ -66,7 +60,11 @@ git clone \
 
 # execute
 cd ${tmp_dir}/build
-${CEI_CMAKE} ../src -DCMAKE_BUILD_TYPE=${CEI_CONFIG} ${cmake_prefix} ${cmake_opts}
+if [ -z "${CEI_PREFIX}" ]; then
+    ${CEI_CMAKE} ../src -DCMAKE_BUILD_TYPE=${CEI_CONFIG} ${cmake_opts}
+else
+    ${CEI_CMAKE} ../src -DCMAKE_BUILD_TYPE=${CEI_CONFIG} -DCMAKE_INSTALL_PREFIX="${CEI_PREFIX}" ${cmake_opts}
+fi
 ${CEI_CMAKE} --build . --target install --config ${CEI_CONFIG} --parallel ${CEI_PARALLEL}
 
 # remove temporary directory

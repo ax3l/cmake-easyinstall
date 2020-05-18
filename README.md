@@ -1,4 +1,4 @@
-# cmake-easyinstall ![Supported Platforms](https://img.shields.io/badge/platforms-linux%20|%20osx-blue.svg) ![License: BSD-2-Clause](https://img.shields.io/github/license/ax3l/cmake-easyinstall)
+# cmake-easyinstall ![Supported Platforms](https://img.shields.io/badge/platforms-linux%20|%20osx%20|%20windows-blue.svg) ![License: BSD-2-Clause](https://img.shields.io/github/license/ax3l/cmake-easyinstall)
 
 Install CMake projects as simple as:
 ```sh
