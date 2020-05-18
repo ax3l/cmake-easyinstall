@@ -9,9 +9,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build an Example
       run: |
-        ./cmake-easyinstall --prefix=$HOME git+https://github.com/danmar/cppcheck.git \
-          -DBUILD_TESTS=OFF
-        $HOME/bin/cppcheck --help
+        ./cmake-easyinstall --prefix=$HOME git+https://github.com/openPMD/openPMD-api.git
 
   build_macos:
     runs-on: macos-latest
@@ -19,9 +17,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build an Example
       run: |
-        ./cmake-easyinstall --prefix=$HOME git+https://github.com/danmar/cppcheck.git \
-          -DBUILD_TESTS=OFF
-        $HOME/bin/cppcheck --help
+        ./cmake-easyinstall --prefix=$HOME git+https://github.com/openPMD/openPMD-api.git
 
   build_windows:
     runs-on: windows-latest
@@ -30,6 +26,4 @@ jobs:
     - name: Build an Example
       shell: bash
       run: |
-        ./cmake-easyinstall --prefix=$HOME git+https://github.com/danmar/cppcheck.git \
-          -DBUILD_TESTS=OFF
-        $HOME/bin/cppcheck --help
+        ./cmake-easyinstall --prefix="C:\\\\Program Files\PNGwriter" git+https://github.com/openPMD/openPMD-api.git
