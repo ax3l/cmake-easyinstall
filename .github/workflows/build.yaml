@@ -3,11 +3,32 @@ name: build
 on: [push, pull_request]
 
 jobs:
-  style:
+  build_linux:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - name: Build an Example
+      run: |
+        ./cmake-easyinstall --prefix=$HOME git+https://github.com/danmar/cppcheck.git \
+          -DBUILD_TESTS=OFF
+        $HOME/bin/cppcheck --help
+
+  build_macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build an Example
+      run: |
+        ./cmake-easyinstall --prefix=$HOME git+https://github.com/danmar/cppcheck.git \
+          -DBUILD_TESTS=OFF
+        $HOME/bin/cppcheck --help
+
+  build_windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build an Example
+      shell: bash
       run: |
         ./cmake-easyinstall --prefix=$HOME git+https://github.com/danmar/cppcheck.git \
           -DBUILD_TESTS=OFF
