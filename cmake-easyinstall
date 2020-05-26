@@ -19,6 +19,7 @@ CEI_CMAKE=${CEI_CMAKE:-"cmake"}
 CEI_CONFIG=${CEI_CONFIG:-"RelWithDebInfo"}
 CEI_PARALLEL=${CEI_PARALLEL:-"2"}
 CEI_PREFIX=${CEI_PREFIX:-""}
+CEI_SUDO=${CEI_SUDO:-""}
 
 # command line options (take precedence over environment)
 if [ "$#" -lt 1 ]; then
@@ -65,7 +66,11 @@ if [ -z "${CEI_PREFIX}" ]; then
 else
     ${CEI_CMAKE} ../src -DCMAKE_BUILD_TYPE=${CEI_CONFIG} -DCMAKE_INSTALL_PREFIX="${CEI_PREFIX}" ${cmake_opts}
 fi
-${CEI_CMAKE} --build . --target install --config ${CEI_CONFIG} --parallel ${CEI_PARALLEL}
+if [ -z "${CEI_SUDO}" ]; then
+    ${CEI_CMAKE} --build . --target install --config ${CEI_CONFIG} --parallel ${CEI_PARALLEL}
+else
+    ${CEI_SUDO} ${CEI_CMAKE} --build . --target install --config ${CEI_CONFIG} --parallel ${CEI_PARALLEL}
+fi
 
 # remove temporary directory
 cd -

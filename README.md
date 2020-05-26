@@ -28,6 +28,7 @@ Just `export CEI_<option>=<value>` to change some defaults:
 - `CEI_CONFIG`: the [build configuration](https://cmake.org/cmake/help/v3.16/manual/cmake.1.html#build-tool-mode) (default: `RelWithDebInfo`)
 - `CEI_PARALLEL`: maximum number of concurrent build processes (default: `2`)
 - `CEI_PREFIX`: installation prefix (default: CMake default)
+- `CEI_SUDO`: set to `"sudo"` for privileged installation (default: "")
 
 # Command Line Options
 

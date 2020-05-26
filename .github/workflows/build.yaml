@@ -11,6 +11,15 @@ jobs:
       run: |
         ./cmake-easyinstall --prefix=$HOME git+https://github.com/openPMD/openPMD-api.git
 
+  build_linux_sudo:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build an Example
+      run: |
+        export CEI_SUDO="sudo"
+        ./cmake-easyinstall git+https://github.com/openPMD/openPMD-api.git
+
   build_macos:
     runs-on: macos-latest
     steps:
