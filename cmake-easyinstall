@@ -74,4 +74,8 @@ fi
 
 # remove temporary directory
 cd -
-rm -rf ${tmp_dir}
+if [ -z "${CEI_SUDO}" ]; then
+    rm -rf ${tmp_dir}
+else
+    ${CEI_SUDO} rm -rf ${tmp_dir}
+fi
