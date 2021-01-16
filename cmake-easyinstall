@@ -10,7 +10,7 @@ set -eu -o pipefail
 
 # usage
 function print_usage_and_exit() {
-    echo "Usage: $0 [--prefix=<dir>] git+<https-url>.git [cmake-options]"
+    echo "Usage: $0 [--prefix=<dir>] git+<https-url>.git[@branch] [cmake-options]"
     exit 1
 }
 
@@ -55,9 +55,17 @@ mkdir -p ${tmp_dir}/build
 
 # download
 git_url=${uri:4}  # crop-off "git+" prefix
+# branch provided?
+git_branch=""
+IFS='@' read -ra git_url_tokens <<< "$git_url"
+if [ ${#git_url_tokens[@]} -gt 1 ]; then
+    git_url="${git_url_tokens[0]}"
+    git_branch="--branch ${git_url_tokens[1]}"
+fi
+
 git clone \
   --depth 1 --shallow-submodules \
-  ${git_url} ${tmp_dir}/src
+  ${git_url} ${git_branch} ${tmp_dir}/src
 
 # execute
 cd ${tmp_dir}/build

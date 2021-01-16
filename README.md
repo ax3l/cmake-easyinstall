@@ -17,7 +17,7 @@ chmod a+x cmake-easyinstall
 ## Usage
 
 ```sh
-cmake-easyinstall [--prefix=<dir>] git+<https-url>.git [cmake-options]
+cmake-easyinstall [--prefix=<dir>] git+<https-url>.git[@branch] [cmake-options]
 ```
 
 ## Environment Options
