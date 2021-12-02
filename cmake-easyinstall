@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright 2020 Axel Huebl
+# Copyright 2020-2021 Axel Huebl
 #
 # License: BSD-2-Clause
 #
@@ -20,6 +20,7 @@ CEI_CONFIG=${CEI_CONFIG:-"RelWithDebInfo"}
 CEI_PARALLEL=${CEI_PARALLEL:-"2"}
 CEI_PREFIX=${CEI_PREFIX:-""}
 CEI_SUDO=${CEI_SUDO:-""}
+CEI_TMP=${CEI_TMP:-""}
 
 # command line options (take precedence over environment)
 if [ "$#" -lt 1 ]; then
@@ -46,11 +47,16 @@ else
 fi
 
 # create a temporary build directory
-tmp_dir=$(mktemp --help >/dev/null 2>&1 && mktemp -d -t ci-XXXXXXXXXX || mktemp -d "${TMPDIR:-/tmp}"/ci-XXXXXXXXXX)
-if [ $? -ne 0 ]; then
-    echo "Cannot create a temporary directory"
-    exit 2
+if [ -z "${CEI_TMP}" ]; then
+    tmp_dir=$(mktemp --help >/dev/null 2>&1 && mktemp -d -t ci-XXXXXXXXXX || mktemp -d "${TMPDIR:-/tmp}"/ci-XXXXXXXXXX)
+    if [ $? -ne 0 ]; then
+        echo "Cannot create a temporary directory"
+        exit 2
+    fi
+else
+    tmp_dir=${CEI_TMP}
 fi
+rm -rf ${tmp_dir}/build
 mkdir -p ${tmp_dir}/build
 
 # download
