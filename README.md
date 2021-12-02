@@ -29,6 +29,7 @@ Just `export CEI_<option>=<value>` to change some defaults:
 - `CEI_PARALLEL`: maximum number of concurrent build processes (default: `2`)
 - `CEI_PREFIX`: installation prefix (default: CMake default)
 - `CEI_SUDO`: set to `"sudo"` for privileged installation (default: "")
+- `CEI_TMP`: build in a unique or fixed-location directory (default: a unique `mktemp` directory)
 
 # Command Line Options
 
