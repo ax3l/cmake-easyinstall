@@ -4,7 +4,7 @@
 #
 # License: BSD-2-Clause
 #
-# dependencies: bash, cmake 3.12.0+, git
+# dependencies: bash, cmake 3.15.0+, git
 
 set -eu -o pipefail
 
@@ -73,23 +73,24 @@ git clone \
   --depth 1 --shallow-submodules \
   ${git_url} ${git_branch} ${tmp_dir}/src
 
-# execute
+# configure
 cd ${tmp_dir}/build
 if [ -z "${CEI_PREFIX}" ]; then
     ${CEI_CMAKE} ../src -DCMAKE_BUILD_TYPE=${CEI_CONFIG} ${cmake_opts}
 else
     ${CEI_CMAKE} ../src -DCMAKE_BUILD_TYPE=${CEI_CONFIG} -DCMAKE_INSTALL_PREFIX="${CEI_PREFIX}" ${cmake_opts}
 fi
+
+# build
+${CEI_CMAKE} --build . --config ${CEI_CONFIG} --parallel ${CEI_PARALLEL}
+
+# install
 if [ -z "${CEI_SUDO}" ]; then
-    ${CEI_CMAKE} --build . --target install --config ${CEI_CONFIG} --parallel ${CEI_PARALLEL}
+    ${CEI_CMAKE} --install . --config ${CEI_CONFIG}
 else
-    ${CEI_SUDO} ${CEI_CMAKE} --build . --target install --config ${CEI_CONFIG} --parallel ${CEI_PARALLEL}
+    ${CEI_SUDO} ${CEI_CMAKE} --install . --config ${CEI_CONFIG}
 fi
 
 # remove temporary directory
 cd -
-if [ -z "${CEI_SUDO}" ]; then
-    rm -rf ${tmp_dir}
-else
-    ${CEI_SUDO} rm -rf ${tmp_dir}
-fi
+rm -rf ${tmp_dir}

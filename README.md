@@ -40,6 +40,6 @@ Note: `cmake-options` take precedence over `--prefix` takes precedence over envi
 ## Dependencies
 
 - bash
-- cmake 3.12.0+
+- cmake 3.15.0+
 - git
 - ninja, make, or any other [native build system](https://cmake.org/cmake/help/v3.16/manual/cmake-generators.7.html)

@@ -35,4 +35,4 @@ jobs:
     - name: Build an Example
       shell: bash
       run: |
-        ./cmake-easyinstall --prefix="C:\\\\Program Files\PNGwriter" git+https://github.com/openPMD/openPMD-api.git
+        ./cmake-easyinstall --prefix="C:\\\\Program Files\openPMD\openPMD-api" git+https://github.com/openPMD/openPMD-api.git
