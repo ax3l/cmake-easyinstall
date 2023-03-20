@@ -6,7 +6,7 @@ jobs:
   build_linux:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: Build an Example
       run: |
         ./cmake-easyinstall --prefix=$HOME git+https://github.com/openPMD/openPMD-api.git
@@ -14,7 +14,7 @@ jobs:
   build_linux_sudo:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: Build an Example
       run: |
         export CEI_SUDO="sudo"
@@ -23,7 +23,7 @@ jobs:
   build_macos:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: Build an Example
       run: |
         ./cmake-easyinstall --prefix=$HOME git+https://github.com/openPMD/openPMD-api.git
@@ -31,7 +31,7 @@ jobs:
   build_windows:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: Build an Example
       shell: bash
       run: |
