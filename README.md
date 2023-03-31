@@ -10,7 +10,7 @@ cmake-easyinstall git+https://github.com/org/repo.git
 ## Install
 
 ```sh
-curl -L -o cmake-easyinstall https://git.io/JvLxY
+curl -L -o cmake-easyinstall https://raw.githubusercontent.com/ax3l/cmake-easyinstall/main/cmake-easyinstall
 chmod a+x cmake-easyinstall
 ```
 
