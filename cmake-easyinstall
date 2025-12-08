@@ -74,23 +74,21 @@ git clone \
   ${git_url} ${git_branch} ${tmp_dir}/src
 
 # configure
-cd ${tmp_dir}/build
 if [ -z "${CEI_PREFIX}" ]; then
-    ${CEI_CMAKE} ../src -DCMAKE_BUILD_TYPE=${CEI_CONFIG} ${cmake_opts}
+    ${CEI_CMAKE} -S ${tmp_dir}/src -B ${tmp_dir}/build -DCMAKE_BUILD_TYPE=${CEI_CONFIG} ${cmake_opts}
 else
-    ${CEI_CMAKE} ../src -DCMAKE_BUILD_TYPE=${CEI_CONFIG} -DCMAKE_INSTALL_PREFIX="${CEI_PREFIX}" ${cmake_opts}
+    ${CEI_CMAKE} -S ${tmp_dir}/src -B ${tmp_dir}/build -DCMAKE_BUILD_TYPE=${CEI_CONFIG} -DCMAKE_INSTALL_PREFIX="${CEI_PREFIX}" ${cmake_opts}
 fi
 
 # build
-${CEI_CMAKE} --build . --config ${CEI_CONFIG} --parallel ${CEI_PARALLEL}
+${CEI_CMAKE} --build ${tmp_dir}/build --config ${CEI_CONFIG} --parallel ${CEI_PARALLEL}
 
 # install
 if [ -z "${CEI_SUDO}" ]; then
-    ${CEI_CMAKE} --install . --config ${CEI_CONFIG}
+    ${CEI_CMAKE} --install ${tmp_dir}/build --config ${CEI_CONFIG}
 else
-    ${CEI_SUDO} ${CEI_CMAKE} --install . --config ${CEI_CONFIG}
+    ${CEI_SUDO} ${CEI_CMAKE} --install ${tmp_dir}/build --config ${CEI_CONFIG}
 fi
 
 # remove temporary directory
-cd -
 rm -rf ${tmp_dir}
